@@ -8,54 +8,44 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GraphProcessor {
-    static int index = 99;
+    static int index = 122;
     static BufferedWriter issueWriter;
     public static void main(String[] args) throws Exception {
         // extract
         InputStream f = new FileInputStream("src/main/resources/maven/issue.csv");
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(f));
         String[] head = new String[]{
-                "MNG-4120","MNG-5608","MNG-4735","MNG-3897","MNG-5516","MNG-5590","MNG-5612","MNG-2809","MNG-3524","MNG-5360","MNG-4174","MNG-4471","MNG-3773","MNG-5055","MNG-2363","MNG-1775","MNG-2627","MNG-3017","MPH-79","MNG-3140","MNG-3228","MNG-5127","MNG-4620"};
+                "MNG-4174", "MNG-4120", "MNG-3017", "MNG-2363", "MNG-5608", "MNG-2627", "MPH-79", "MNG-5612", "MNG-5127", "MNG-3773", "MNG-1775", "MNG-4471", "MNG-5516", "MNG-4735", "MNG-4620", "MNG-3524", "MNG-3140", "MNG-5055", "MNG-5590", "MNG-2809", "MNG-3228", "MNG-5360", "MNG-3897"
+        };
         Integer[] header = Arrays.stream(head).map(x->Integer.valueOf(x.split("-")[1])).collect(Collectors.toList()).toArray(new Integer[0]);
-
-        int[][] m = new int[][]{{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-                {0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
-                {0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0},
-                {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
-                {1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,1,0,1,0,1,0,0,1},
-                {0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-                {0,0,0,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0}};
+        int[][] m = new int[][]{
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        };
 
         //issueMap, get issue from CSV
         Map<Integer,Issue> issueMap = new HashMap<>();
-//        String s = bufferedReader.readLine();
-//        while ((s=bufferedReader.readLine())!=null){
-//            String[] tmp = s.split(",");
-//            String[] t = tmp[0].split("-");
-//            if(t.length!=2){
-//                continue;
-//            }
-//            int number = Integer.valueOf(t[1]);
-//            String title = tmp[8];
-//            String description = tmp[9];
-//            issueMap.put(number,new Issue(0,title,description));
-//        }
         List<List<String>> csv = MyCSVReader.read();
         for (int i=0;i<csv.size();i++){
             String[] s_issueNumber = csv.get(i).get(0).split("-");
@@ -78,18 +68,103 @@ public class GraphProcessor {
 
         for (int i=0;i< m.length;i++){
             int issueNumber = header[i];
+            String kw = "null";
             Issue left = get(issueMap,issueNumber);
-            for(int j=0;j<m[0].length;j++){
+            for(int j=i;j<m[0].length;j++){
                 if(m[i][j]!=1){
                     continue;
                 }
                 Issue right = get(issueMap,header[j]);
                 // relation
-                // (id),issueId1,issueId2
-                String relation = "("+left.getId()+","+right.getId() +")";
+                // (id),issueId1,issueId2,graphNumber,origin,level2
+                String relation = "("
+                        +left.getId()+","
+                        +right.getId()+","
+                        + 2 +","
+                        + 0 +","
+                        + ("\'"+kw+"\'")
+                        +")";
                 relationWriter.write(relation+",\n");
             }
         }
+        relationWriter.write(",\n");
+
+
+        String[] head2 = new String[]{
+                "MNG-1775", "MNG-2809", "MNG-2363", "MNG-5360", "MNG-4620", "MNG-3140", "MNG-4120", "MNG-3524", "MNG-5608", "MNG-4471", "MNG-5590", "MNG-5612", "MNG-3228", "MNG-5127", "MNG-3773"
+        };
+        Integer[] header2 = Arrays.stream(head2).map(x->Integer.valueOf(x.split("-")[1])).collect(Collectors.toList()).toArray(new Integer[0]);
+        String[] keywords = new String[]{
+                "profile specified pom;activator profiles",
+
+                "profile specified pom;activator profiles",
+
+                "basedir profile activation;basedir property profile",
+
+                "basedir profile activation;basedir property profile",
+
+                "basedir profile activation;basedir property profile",
+
+                "basedir profile activation;basedir property profile",
+
+                "basedir profile activation;basedir property profile",
+
+                "basedir profile activation;basedir property profile",
+
+                "basedir profile activation;basedir property profile",
+
+                "profile specified pom;activator profiles",
+
+                "basedir profile activation;basedir property profile",
+
+                "basedir profile activation;basedir property profile",
+
+                "maven profile activation, clone maven",
+
+                "maven profile activation, clone maven",
+
+                "maven profile activation, clone maven"
+        };
+        int[][] m2 = new int[][]{
+                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        };
+        for (int i=0;i< m2.length;i++){
+            int issueNumber = header2[i];
+            String kw = keywords[i];
+            Issue left = get(issueMap,issueNumber);
+            for(int j=i;j<m2[0].length;j++){
+                if(m2[i][j]!=1){
+                    continue;
+                }
+                Issue right = get(issueMap,header2[j]);
+                // relation
+                // (id),issueId1,issueId2,graphNumber,origin,level2
+                String relation = "("
+                        +left.getId()+","
+                        +right.getId()+","
+                        + 2 +","
+                        + 1 +","
+                        + ("\'"+kw+"\'")
+                        +")";
+                relationWriter.write(relation+",\n");
+            }
+        }
+
+
         issueWriter.close();
         relationWriter.close();
     }
@@ -104,8 +179,8 @@ public class GraphProcessor {
         if(issue.getId()==0){
             issue.setId(index++);
             // issue
-            // issueId,projectId,issueNumber,title,description
-            String iss = "("+issue.getId()+","+ 6 +","+issue.getIssueNumber()+",\'"+issue.getTitle().replace('\'',' ')+"\',\'"+issue.getDescription().replace('\'',' ')+"\')";
+            // issueId,issueNumber,projectId，title,description，0
+            String iss = "("+issue.getId()+","+ issue.getIssueNumber()+"," +6 +",\'"+issue.getTitle().replace('\'',' ')+"\',\'"+issue.getDescription().replace('\'',' ')+"\'"+",0"+")";
             issueWriter.write(iss+",\n");
         }
     }

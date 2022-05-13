@@ -30,9 +30,9 @@ public class FileUtil {
 
     public static List<String> getFiles() {
         Path startPath = Paths.get("src/main/resources/eclipse_src");
-        List<String> set = null;
+        List<String> list = null;
         try {
-            set = Files.walk(startPath)
+            list = Files.walk(startPath)
                     .parallel().map(x->x.toString()).map(x->{
                         return x.replace("src\\main\\resources\\","");
                     }).collect(Collectors.toList());
@@ -43,6 +43,24 @@ public class FileUtil {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return set;
+        return list;
+    }
+
+    public static List<String> getFiles(String location,String prefix) {
+        Path startPath = Paths.get(location);
+        List<String> list = null;
+        try {
+            list = Files.walk(startPath)
+                    .parallel().map(x->x.toString()).map(x->{
+                        return x.replace(prefix,"");
+                    }).collect(Collectors.toList());
+            Map<Integer, Long> stats = Files.walk(startPath)
+                    .parallel()
+                    .collect(groupingBy(n -> Files.isDirectory(n, LinkOption.NOFOLLOW_LINKS) ? 1 : 2, counting()));
+            System.out.format("Files: %d, dirs: %d. ", stats.get(2), stats.get(1));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return list;
     }
 }

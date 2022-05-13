@@ -56,11 +56,11 @@ public class TextProcess2 {
                     String description =issueMap.get(Integer.valueOf(issueNumber)).getDescription().replace('\'',' ');
 
                     // issue
-                    // IssueId, issue_number,project_id,title,description
-                    // i , issueNumber, 5, title, descr
+                    // IssueId, issue_number,project_id,title,description,status
+                    // i , issueNumber, 5, title, descr,0
                     if(issueMap.get(Integer.valueOf(issueNumber)).getId()==0){
                         issueMap.get(Integer.valueOf(issueNumber)).setId(index);
-                        String issue = "("+String.join(",", Integer.toString(index++),issueNumber, Integer.toString(5) ,"'"+title+"'" ,"'"+description+"'")+")";
+                        String issue = "("+String.join(",", Integer.toString(index++),issueNumber, Integer.toString(5) ,"'"+title+"'" ,"'"+description+"'","0")+")";
                         issueWriter.write(issue+",\n");
                     }
                     int id  = issueMap.get(Integer.valueOf(issueNumber)).getId();

@@ -3,6 +3,11 @@ import java.util.regex.Pattern;
 
 public class regexTest {
     public static void main(String[] args) {
+        String issue = "adff. dfasf";
+        String[] tmp  = issue.split("\\.");
+        for (String i :issue.split(".")){
+            System.out.println(i);
+        }
         String s = "add.a";
         String pattern= "(.*)\\.(.*)";
         Pattern r = Pattern.compile(pattern);
